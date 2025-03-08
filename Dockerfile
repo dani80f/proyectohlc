@@ -27,8 +27,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Instalar dependencias de Composer
 RUN composer install --optimize-autoloader --no-dev
 
-# Instalar Node.js y npm
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+# Instalar Node.js 18.x y npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
