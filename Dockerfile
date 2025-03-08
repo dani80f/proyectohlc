@@ -38,6 +38,9 @@ RUN npm install
 # Compilar assets para producción (usando Vite)
 RUN npm run build
 
+# Ejecutar migraciones de la base de datos
+RUN php artisan migrate --force
+
 # Configurar permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
