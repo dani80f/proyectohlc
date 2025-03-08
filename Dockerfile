@@ -38,9 +38,6 @@ RUN npm install
 # Compilar assets para producción (usando Vite)
 RUN npm run build
 
-# Ejecutar migraciones de la base de datos
-RUN php artisan migrate --force
-
 # Configurar permisos para Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
@@ -54,8 +51,11 @@ RUN echo "<VirtualHost *:80>\n\
     </Directory>\n\
 </VirtualHost>" > /etc/apache2/sites-available/000-default.conf
 
+# Hacer que el script de inicio sea ejecutable
+RUN chmod +x /var/www/html/start.sh
+
 # Exponer el puerto 80
 EXPOSE 80
 
-# Comando para iniciar Apache
-CMD ["apache2-foreground"]
+# Comando para iniciar Apache usando el script de inicio
+CMD ["./start.sh"]
